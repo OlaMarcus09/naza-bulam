@@ -26,9 +26,9 @@ export default function Hero() {
     setCurrentIndex((prev) => (prev - 1 + IMAGES.length) % IMAGES.length);
   };
 
-  // Improved drag handler for a smoother "scroll" feel
+  // Drag handler for the swipe
   const handleDragEnd = (event: any, info: PanInfo) => {
-    const swipeThreshold = 30; // Lower threshold for easier swiping
+    const swipeThreshold = 30; 
     if (info.offset.x < -swipeThreshold) {
       handleNext();
     } else if (info.offset.x > swipeThreshold) {
@@ -45,7 +45,6 @@ export default function Hero() {
 
   const variants = {
     center: { x: "0%", scale: 1, zIndex: 20, filter: "blur(0px)", opacity: 1 },
-    // Reduced the spread (x) and scale slightly to make images smaller/more elegant
     left: { x: "-50%", scale: 0.7, zIndex: 10, filter: "blur(10px)", opacity: 0.3 },
     right: { x: "50%", scale: 0.7, zIndex: 10, filter: "blur(10px)", opacity: 0.3 },
     hidden: { x: "0%", scale: 0.3, zIndex: 0, filter: "blur(15px)", opacity: 0 },
@@ -86,7 +85,8 @@ export default function Hero() {
           </div>
 
           {/* Right Column: Interactive Carousel */}
-          <div className="lg:col-start-7 lg:col-span-6 relative w-full aspect-[4/5] md:aspect-[3/4] flex justify-center items-center order-1 lg:order-2">
+          {/* CHANGED: Replaced aspect ratios with fixed, elegant heights */}
+          <div className="lg:col-start-7 lg:col-span-6 relative w-full h-[400px] md:h-[500px] lg:h-[600px] flex justify-center items-center order-1 lg:order-2">
             <AnimatePresence initial={false}>
               {IMAGES.map((image, index) => {
                 const position = getPosition(index);
@@ -94,18 +94,19 @@ export default function Hero() {
                 return (
                   <motion.div
                     key={image.id}
-                    drag="x" // Enables horizontal "scrolling" via drag
+                    drag="x"
                     dragConstraints={{ left: 0, right: 0 }}
                     dragElastic={0.2}
                     onDragEnd={handleDragEnd}
-                    // Reduced width from 65% to 55% for a smaller, more focused look
+                    // CRITICAL: This allows horizontal swiping on mobile devices!
+                    style={{ touchAction: "pan-y" }} 
                     className="absolute w-[55%] md:w-[50%] h-full cursor-grab active:cursor-grabbing shadow-2xl origin-center"
                     variants={variants}
                     initial={false}
                     animate={position}
                     transition={{
                       type: "spring",
-                      stiffness: 180, // Snappier response
+                      stiffness: 180,
                       damping: 22,
                     }}
                     onClick={() => {
@@ -121,7 +122,6 @@ export default function Hero() {
                       sizes="(max-width: 768px) 100vw, 50vw"
                       priority={position === "center"}
                     />
-                    {/* Darker overlay on background images to make the center pop */}
                     {position !== "center" && (
                       <div className="absolute inset-0 bg-nb-black/50 pointer-events-none transition-opacity duration-300" />
                     )}
