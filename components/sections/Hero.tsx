@@ -109,7 +109,8 @@ export default function Hero() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6 w-full sm:w-auto">
-              <Link href="/portfolio" className="w-full sm:w-auto">
+              {/* Changed href from /portfolio to /coming-soon */}
+              <Link href="/coming-soon" className="w-full sm:w-auto">
                 <button className="w-full px-10 py-4 bg-transparent border border-nb-cream text-nb-cream font-sans text-[11px] tracking-[0.15em] uppercase hover:bg-nb-cream hover:text-nb-black transition-colors duration-300 rounded-none whitespace-nowrap">
                   Explore Our Work
                 </button>
