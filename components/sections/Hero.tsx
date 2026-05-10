@@ -26,8 +26,9 @@ export default function Hero() {
     setCurrentIndex((prev) => (prev - 1 + IMAGES.length) % IMAGES.length);
   };
 
+  // Improved drag handler for a smoother "scroll" feel
   const handleDragEnd = (event: any, info: PanInfo) => {
-    const swipeThreshold = 50;
+    const swipeThreshold = 30; // Lower threshold for easier swiping
     if (info.offset.x < -swipeThreshold) {
       handleNext();
     } else if (info.offset.x > swipeThreshold) {
@@ -44,9 +45,10 @@ export default function Hero() {
 
   const variants = {
     center: { x: "0%", scale: 1, zIndex: 20, filter: "blur(0px)", opacity: 1 },
-    left: { x: "-55%", scale: 0.75, zIndex: 10, filter: "blur(8px)", opacity: 0.4 },
-    right: { x: "55%", scale: 0.75, zIndex: 10, filter: "blur(8px)", opacity: 0.4 },
-    hidden: { x: "0%", scale: 0.4, zIndex: 0, filter: "blur(12px)", opacity: 0 },
+    // Reduced the spread (x) and scale slightly to make images smaller/more elegant
+    left: { x: "-50%", scale: 0.7, zIndex: 10, filter: "blur(10px)", opacity: 0.3 },
+    right: { x: "50%", scale: 0.7, zIndex: 10, filter: "blur(10px)", opacity: 0.3 },
+    hidden: { x: "0%", scale: 0.3, zIndex: 0, filter: "blur(15px)", opacity: 0 },
   };
 
   return (
@@ -62,7 +64,6 @@ export default function Hero() {
             
             <h1 className="text-nb-cream font-serif text-[48px] md:text-[64px] leading-[1.1] md:leading-[1] mb-10 uppercase">
               <span className="block tracking-tight">Dressed in</span>
-              {/* Changed color to nb-gold and removed the left margin to ensure perfect left-alignment */}
               <span className="italic normal-case text-nb-gold block mt-2">Your Story</span>
             </h1>
 
@@ -93,17 +94,19 @@ export default function Hero() {
                 return (
                   <motion.div
                     key={image.id}
-                    drag="x"
+                    drag="x" // Enables horizontal "scrolling" via drag
                     dragConstraints={{ left: 0, right: 0 }}
+                    dragElastic={0.2}
                     onDragEnd={handleDragEnd}
-                    className="absolute w-[65%] md:w-[60%] h-full cursor-grab active:cursor-grabbing shadow-2xl origin-center"
+                    // Reduced width from 65% to 55% for a smaller, more focused look
+                    className="absolute w-[55%] md:w-[50%] h-full cursor-grab active:cursor-grabbing shadow-2xl origin-center"
                     variants={variants}
                     initial={false}
                     animate={position}
                     transition={{
                       type: "spring",
-                      stiffness: 150,
-                      damping: 20,
+                      stiffness: 180, // Snappier response
+                      damping: 22,
                     }}
                     onClick={() => {
                       if (position === "left") handlePrev();
@@ -118,8 +121,9 @@ export default function Hero() {
                       sizes="(max-width: 768px) 100vw, 50vw"
                       priority={position === "center"}
                     />
+                    {/* Darker overlay on background images to make the center pop */}
                     {position !== "center" && (
-                      <div className="absolute inset-0 bg-nb-black/40 pointer-events-none transition-opacity duration-300" />
+                      <div className="absolute inset-0 bg-nb-black/50 pointer-events-none transition-opacity duration-300" />
                     )}
                   </motion.div>
                 );
