@@ -15,8 +15,8 @@ export default function BoutiqueTeaser() {
         Is Coming
       </h2>
 
-      {/* Description */}
-      <p className="text-nb-muted font-sans font-light text-[13px] leading-[1.8] max-w-md mb-12">
+      {/* Description - Updated for better readability */}
+      <p className="text-nb-cream/90 font-sans font-normal text-[14px] leading-[1.8] max-w-md mb-12">
         Our online boutique is currently being curated with care. Every detail is being refined to create a premium shopping experience.
       </p>
 
