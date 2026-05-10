@@ -26,7 +26,6 @@ export default function Hero() {
     setCurrentIndex((prev) => (prev - 1 + IMAGES.length) % IMAGES.length);
   };
 
-  // Logic to handle the swipe gesture
   const handleDragEnd = (event: any, info: PanInfo) => {
     const swipeThreshold = 50;
     if (info.offset.x < -swipeThreshold) {
@@ -60,14 +59,17 @@ export default function Hero() {
             <span className="text-nb-gold font-sans text-[11px] font-semibold tracking-[0.2em] uppercase mb-6 block">
               Naza Bulam
             </span>
-            <h1 className="text-nb-cream font-serif text-[48px] md:text-[64px] leading-[1.1] md:leading-[105%] mb-10 uppercase tracking-tight">
-              <span>Dressed in</span>
-              <br className="hidden md:block" />
-              <span className="italic normal-case md:ml-4">Your Story</span>
+            
+            <h1 className="text-nb-cream font-serif text-[48px] md:text-[64px] leading-[1.1] md:leading-[1] mb-10 uppercase">
+              <span className="block tracking-tight">Dressed in</span>
+              {/* Changed color to nb-gold and removed the left margin to ensure perfect left-alignment */}
+              <span className="italic normal-case text-nb-gold block mt-2">Your Story</span>
             </h1>
+
             <p className="text-nb-white/80 font-sans font-light text-[14px] md:text-[15px] tracking-[0.15em] uppercase leading-relaxed mb-16 max-w-lg">
               Couture · Ready-to-Wear · Bespoke
             </p>
+
             <div className="flex flex-col sm:flex-row gap-6 w-full sm:w-auto">
               <Link href="/coming-soon" className="w-full sm:w-auto">
                 <button className="w-full px-10 py-4 bg-transparent border border-nb-cream text-nb-cream font-sans text-[11px] tracking-[0.15em] uppercase hover:bg-nb-cream hover:text-nb-black transition-colors duration-300 rounded-none">
@@ -91,7 +93,7 @@ export default function Hero() {
                 return (
                   <motion.div
                     key={image.id}
-                    drag="x" // Enables horizontal swiping
+                    drag="x"
                     dragConstraints={{ left: 0, right: 0 }}
                     onDragEnd={handleDragEnd}
                     className="absolute w-[65%] md:w-[60%] h-full cursor-grab active:cursor-grabbing shadow-2xl origin-center"
@@ -112,7 +114,7 @@ export default function Hero() {
                       src={image.src}
                       alt={image.alt}
                       fill
-                      className="object-cover rounded-sm pointer-events-none" // Prevents default ghost image drag
+                      className="object-cover rounded-sm pointer-events-none"
                       sizes="(max-width: 768px) 100vw, 50vw"
                       priority={position === "center"}
                     />

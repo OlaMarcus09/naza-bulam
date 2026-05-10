@@ -24,7 +24,7 @@ export default function Navbar() {
           <Link href="/" className="hover:text-nb-gold transition-colors">Home</Link>
           <Link href="/coming-soon" className="hover:text-nb-gold transition-colors">Shop</Link>
           <Link href="/coming-soon" className="hover:text-nb-gold transition-colors">Collection</Link>
-          <Link href="#contact" className="hover:text-nb-gold transition-colors">Contact</Link>
+          <Link href="/#contact" className="hover:text-nb-gold transition-colors">Contact</Link>
         </div>
 
         {/* Right Side Actions (Pinned to the Right) */}
