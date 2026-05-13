@@ -54,8 +54,8 @@ export default function Hero() {
       <div className="container mx-auto max-w-[1400px] h-full flex flex-col justify-center">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
-          {/* Left Column: Text Content */}
-          <div className="lg:col-span-5 flex flex-col items-start text-left z-30 mt-12 lg:mt-0 order-2 lg:order-1">
+          {/* Left Column: Text Content - Now order-1 on mobile */}
+          <div className="lg:col-span-5 flex flex-col items-start text-left z-30 mt-12 lg:mt-0 order-1 lg:order-1">
             <span className="text-nb-gold font-sans text-[11px] font-semibold tracking-[0.2em] uppercase mb-6 block">
               Naza Bulam
             </span>
@@ -83,8 +83,8 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Right Column: Interactive Carousel */}
-          <div className="lg:col-start-7 lg:col-span-6 relative w-full max-w-md mx-auto aspect-[4/5] flex justify-center items-center order-1 lg:order-2">
+          {/* Right Column: Interactive Carousel - Now order-2 on mobile */}
+          <div className="lg:col-start-7 lg:col-span-6 relative w-full max-w-md mx-auto aspect-[4/5] flex justify-center items-center order-2 lg:order-2">
             <AnimatePresence initial={false}>
               {IMAGES.map((image, index) => {
                 const position = getPosition(index);
