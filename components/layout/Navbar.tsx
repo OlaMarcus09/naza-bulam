@@ -1,7 +1,10 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 // Official Custom WhatsApp Icon SVG
 const WhatsAppIcon = ({ size = 16 }: { size?: number }) => (
@@ -17,50 +20,136 @@ const WhatsAppIcon = ({ size = 16 }: { size?: number }) => (
 );
 
 export default function Navbar() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Prevent background scrolling when the mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    // Cleanup function
+    return () => { document.body.style.overflow = "unset"; };
+  }, [isMobileMenuOpen]);
+
   return (
-    // Added overflow-x-hidden as a strict safety net to prevent any horizontal scrolling
-    <nav className="w-full bg-nb-cream py-3 sm:py-4 sticky top-0 z-50 border-b border-nb-black/5 overflow-x-hidden">
-      <div className="container mx-auto px-4 sm:px-6 flex items-center justify-between relative min-h-[50px]">
-        
-        {/* Logo (Responsive sizing: smaller on mobile, w-48 on desktop) */}
-        <Link href="/" className="relative w-32 h-8 sm:w-48 sm:h-12 flex-shrink-0">
-          <Image 
-            src="/images/logo-transparent.png"
-            alt="Naza Bulam Logo" 
-            fill 
-            className="object-contain object-left"
-            priority
-          />
-        </Link>
-
-        {/* Navigation Links (Centered using Absolute Positioning - Hidden on Mobile) */}
-        <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-8 text-[11px] tracking-[0.15em] font-sans text-nb-black uppercase font-medium">
-          <Link href="/" className="hover:text-nb-gold transition-colors">Home</Link>
-          <Link href="/coming-soon" className="hover:text-nb-gold transition-colors">Shop</Link>
-          <Link href="/coming-soon" className="hover:text-nb-gold transition-colors">Collection</Link>
-          <Link href="/#contact" className="hover:text-nb-gold transition-colors">Contact</Link>
-        </div>
-
-        {/* Right Side Actions */}
-        <div className="flex items-center gap-4 sm:gap-6">
-          <Link 
-            href={process.env.NEXT_PUBLIC_WA_NUMBER ? `https://wa.me/${process.env.NEXT_PUBLIC_WA_NUMBER}` : "#"} 
-            target="_blank"
-            className="flex items-center gap-2 text-[11px] tracking-[0.15em] font-sans text-nb-black hover:text-nb-gold transition-colors uppercase font-medium"
-          >
-            <WhatsAppIcon size={16} />
-            <span className="hidden sm:inline">WhatsApp</span>
+    <>
+      <nav className="w-full bg-nb-cream py-3 sm:py-4 sticky top-0 z-40 border-b border-nb-black/5 overflow-x-hidden">
+        <div className="container mx-auto px-4 sm:px-6 flex items-center justify-between relative min-h-[50px]">
+          
+          {/* Logo */}
+          <Link href="/" className="relative w-32 h-8 sm:w-48 sm:h-12 flex-shrink-0 z-50">
+            <Image 
+              src="/images/logo-transparent.png"
+              alt="Naza Bulam Logo" 
+              fill 
+              className="object-contain object-left"
+              priority
+            />
           </Link>
 
-          <Link href="/book" className="flex-shrink-0">
-            {/* Responsive Button: "Book" on mobile, "Book Appointment" on larger screens */}
-            <button className="bg-nb-black text-nb-cream px-5 py-2.5 sm:px-8 sm:py-3 text-[10px] sm:text-[11px] tracking-[0.1em] sm:tracking-[0.15em] uppercase hover:bg-nb-gold hover:text-nb-black transition-colors rounded-none font-semibold whitespace-nowrap">
-              Book <span className="hidden sm:inline">Appointment</span>
+          {/* --- DESKTOP LAYOUT --- */}
+          <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-8 text-[11px] tracking-[0.15em] font-sans text-nb-black uppercase font-medium">
+            <Link href="/" className="hover:text-nb-gold transition-colors">Home</Link>
+            <Link href="/coming-soon" className="hover:text-nb-gold transition-colors">Shop</Link>
+            <Link href="/coming-soon" className="hover:text-nb-gold transition-colors">Collection</Link>
+            <Link href="/#contact" className="hover:text-nb-gold transition-colors">Contact</Link>
+          </div>
+
+          <div className="hidden lg:flex items-center gap-6 z-50">
+            <Link 
+              href={process.env.NEXT_PUBLIC_WA_NUMBER ? `https://wa.me/${process.env.NEXT_PUBLIC_WA_NUMBER}` : "#"} 
+              target="_blank"
+              className="flex items-center gap-2 text-[11px] tracking-[0.15em] font-sans text-nb-black hover:text-nb-gold transition-colors uppercase font-medium"
+            >
+              <WhatsAppIcon size={16} />
+              <span>WhatsApp</span>
+            </Link>
+
+            <Link href="/book">
+              <button className="bg-nb-black text-nb-cream px-8 py-3 text-[11px] tracking-[0.15em] uppercase hover:bg-nb-gold hover:text-nb-black transition-colors rounded-none font-semibold">
+                Book Appointment
+              </button>
+            </Link>
+          </div>
+
+          {/* --- MOBILE LAYOUT (Header) --- */}
+          <div className="flex lg:hidden items-center gap-3 z-50">
+            <Link href="/book" className="flex-shrink-0">
+              <button className="bg-nb-black text-nb-cream px-5 py-2.5 text-[10px] tracking-[0.1em] uppercase hover:bg-nb-gold hover:text-nb-black transition-colors rounded-none font-semibold">
+                Book
+              </button>
+            </Link>
+            
+            <button 
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="p-2 -mr-2 text-nb-black hover:text-nb-gold transition-colors"
+              aria-label="Open Menu"
+            >
+              <Menu size={24} strokeWidth={1.5} />
             </button>
-          </Link>
+          </div>
         </div>
+      </nav>
 
-      </div>
-    </nav>
+      {/* --- MOBILE SIDEBAR MENU --- */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <>
+            {/* Dark Overlay Background */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="fixed inset-0 bg-nb-black/60 z-[60] lg:hidden backdrop-blur-sm"
+            />
+
+            {/* Sliding Drawer */}
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "tween", duration: 0.3, ease: "easeInOut" }}
+              className="fixed right-0 top-0 bottom-0 w-[80vw] max-w-sm bg-nb-cream z-[70] flex flex-col px-8 py-8 lg:hidden shadow-2xl overflow-y-auto"
+            >
+              {/* Close Button */}
+              <div className="flex justify-end mb-12">
+                <button 
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="p-2 -mr-2 text-nb-black hover:text-nb-gold transition-colors"
+                  aria-label="Close Menu"
+                >
+                  <X size={28} strokeWidth={1.5} />
+                </button>
+              </div>
+
+              {/* Mobile Links */}
+              <div className="flex flex-col gap-8 text-[14px] tracking-[0.2em] font-sans text-nb-black uppercase font-medium">
+                <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-nb-gold transition-colors">Home</Link>
+                <Link href="/coming-soon" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-nb-gold transition-colors">Shop</Link>
+                <Link href="/coming-soon" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-nb-gold transition-colors">Collection</Link>
+                <Link href="/#contact" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-nb-gold transition-colors">Contact</Link>
+              </div>
+
+              {/* Bottom Action (WhatsApp) */}
+              <div className="mt-auto pt-10 border-t border-nb-black/10">
+                <Link 
+                  href={process.env.NEXT_PUBLIC_WA_NUMBER ? `https://wa.me/${process.env.NEXT_PUBLIC_WA_NUMBER}` : "#"} 
+                  target="_blank"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center gap-3 text-[12px] tracking-[0.15em] font-sans text-nb-black hover:text-nb-gold transition-colors uppercase font-medium"
+                >
+                  <WhatsAppIcon size={18} />
+                  <span>Message Us</span>
+                </Link>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
