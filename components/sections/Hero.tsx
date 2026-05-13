@@ -26,7 +26,6 @@ export default function Hero() {
     setCurrentIndex((prev) => (prev - 1 + IMAGES.length) % IMAGES.length);
   };
 
-  // Drag handler for the swipe
   const handleDragEnd = (event: any, info: PanInfo) => {
     const swipeThreshold = 30; 
     if (info.offset.x < -swipeThreshold) {
@@ -85,8 +84,7 @@ export default function Hero() {
           </div>
 
           {/* Right Column: Interactive Carousel */}
-          {/* CHANGED: Replaced aspect ratios with fixed, elegant heights */}
-          <div className="lg:col-start-7 lg:col-span-6 relative w-full h-[400px] md:h-[500px] lg:h-[600px] flex justify-center items-center order-1 lg:order-2">
+          <div className="lg:col-start-7 lg:col-span-6 relative w-full max-w-md mx-auto aspect-[4/5] flex justify-center items-center order-1 lg:order-2">
             <AnimatePresence initial={false}>
               {IMAGES.map((image, index) => {
                 const position = getPosition(index);
@@ -98,9 +96,8 @@ export default function Hero() {
                     dragConstraints={{ left: 0, right: 0 }}
                     dragElastic={0.2}
                     onDragEnd={handleDragEnd}
-                    // CRITICAL: This allows horizontal swiping on mobile devices!
                     style={{ touchAction: "pan-y" }} 
-                    className="absolute w-[55%] md:w-[50%] h-full cursor-grab active:cursor-grabbing shadow-2xl origin-center"
+                    className="absolute w-full h-full cursor-grab active:cursor-grabbing shadow-2xl origin-center"
                     variants={variants}
                     initial={false}
                     animate={position}
