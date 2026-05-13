@@ -6,13 +6,13 @@ import Image from "next/image";
 import { motion, AnimatePresence, PanInfo } from "framer-motion";
 
 const IMAGES = [
-  { id: 1, src: "/images/hero/img-1.jpg", alt: "Naza Bulam Creation 1" },
-  { id: 2, src: "/images/hero/img-2.jpg", alt: "Naza Bulam Creation 2" },
-  { id: 3, src: "/images/hero/img-3.jpg", alt: "Naza Bulam Creation 3" },
-  { id: 4, src: "/images/hero/img-4.jpg", alt: "Naza Bulam Creation 4" },
-  { id: 5, src: "/images/hero/img-5.jpg", alt: "Naza Bulam Creation 5" },
-  { id: 6, src: "/images/hero/img-6.jpg", alt: "Naza Bulam Creation 6" },
-  { id: 7, src: "/images/hero/img-7.jpg", alt: "Naza Bulam Creation 7" },
+  { id: 1, src: "https://res.cloudinary.com/dkgkdcsjc/image/upload/v1778635954/img-1_1_ljpf2j.jpg", alt: "Naza Bulam Creation 1" },
+  { id: 2, src: "https://res.cloudinary.com/dkgkdcsjc/image/upload/v1778635967/img-2_1_y1t45f.jpg", alt: "Naza Bulam Creation 2" },
+  { id: 3, src: "https://res.cloudinary.com/dkgkdcsjc/image/upload/v1778633495/img-3_h2fybs.jpg", alt: "Naza Bulam Creation 3" },
+  { id: 4, src: "https://res.cloudinary.com/dkgkdcsjc/image/upload/v1778633491/img-4_lozbqh.png", alt: "Naza Bulam Creation 4" },
+  { id: 5, src: "https://res.cloudinary.com/dkgkdcsjc/image/upload/v1778633491/img-5_otxjmo.png", alt: "Naza Bulam Creation 5" },
+  { id: 6, src: "https://res.cloudinary.com/dkgkdcsjc/image/upload/v1778633492/img-6_ymoge0.png", alt: "Naza Bulam Creation 6" },
+  { id: 7, src: "https://res.cloudinary.com/dkgkdcsjc/image/upload/v1778633493/img-7_o4i0jn.png", alt: "Naza Bulam Creation 7" },
 ];
 
 export default function Hero() {

@@ -10,14 +10,15 @@ export default function Navbar() {
       <div className="container mx-auto px-6 flex items-center justify-between relative min-h-[50px]">
         
         {/* Logo (Pinned to the Left) */}
-        <Link href="/" className="relative w-32 h-10 flex-shrink-0">
-          <Image 
-            src="/images/logo-transparent.png" 
-            alt="Naza Bulam Logo" 
-            fill 
-            className="object-contain object-left"
-          />
-        </Link>
+        <Link href="/" className="relative w-48 h-12 flex-shrink-0">
+  <Image 
+    src="/images/logo-transparent.png"
+    alt="Naza Bulam Logo" 
+    fill 
+    className="object-contain object-left"
+    priority
+  />
+</Link>
 
         {/* Navigation Links (Centered using Absolute Positioning) */}
         <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-8 text-[11px] tracking-[0.15em] font-sans text-nb-black uppercase font-medium">

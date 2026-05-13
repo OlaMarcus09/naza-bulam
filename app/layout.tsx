@@ -18,9 +18,30 @@ const montserrat = Montserrat({
   variable: "--font-sans",
 });
 
+// High-End SEO Metadata
 export const metadata: Metadata = {
-  title: "Naza Bulam | Luxury Fashion House",
-  description: "Dressed in your story. Couture, Ready-to-Wear, and Bespoke.",
+  metadataBase: new URL('https://naza-bulam.vercel.app'),
+  title: {
+    default: "Naza Bulam | Luxury Fashion House",
+    template: "%s | Naza Bulam",
+  },
+  description: "Dressed in Your Story. Naza Bulam is a premier luxury fashion house in Abuja, Nigeria, specializing in Couture, Ready-to-Wear, and Bespoke collections.",
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    title: 'Naza Bulam | Luxury Fashion House',
+    description: 'Bespoke tailoring and couture collections for the discerning woman.',
+    url: 'https://naza-bulam.vercel.app',
+    siteName: 'Naza Bulam',
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Naza Bulam | Luxury Fashion House',
+    description: 'Bespoke tailoring and couture collections for the discerning woman.',
+  },
 };
 
 export default function RootLayout({

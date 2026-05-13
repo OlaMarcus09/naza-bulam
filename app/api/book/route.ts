@@ -29,9 +29,10 @@ export async function POST(req: Request) {
     const calLink = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Naza+Bulam+Consultation&dates=${startDate}/${endDate}&details=Your+appointment+request+is+currently+being+reviewed.+The+Atelier+will+contact+you+to+confirm+the+exact+time.&location=Abuja,+Nigeria`;
 
     // 4. Send the Luxury HTML Email via Resend
-    await resend.emails.send({
-      from: 'Naza Bulam <nazabulam.com>',
-      to: email,
+    const { data, error } = await resend.emails.send({
+      from: 'Naza Bulam <info@nazabulam.com>', 
+      to: email, // Sends to the customer
+      bcc: 'your-personal-email@gmail.com', // ADD YOUR ACTUAL EMAIL HERE TO GET COPIES!
       subject: 'Consultation Request Received - Naza Bulam',
       html: `
         <div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; background-color: #F8F7F4; padding: 40px; border: 1px solid #eaeaea;">
@@ -68,6 +69,14 @@ export async function POST(req: Request) {
         </div>
       `
     });
+
+    // If Resend throws a specific error, this will catch it!
+    if (error) {
+      console.error("Resend API Error:", error);
+      return NextResponse.json({ success: false, error: error.message }, { status: 400 });
+    }
+
+    return NextResponse.json({ success: true });
 
     return NextResponse.json({ success: true });
   } catch (error) {
