@@ -66,7 +66,7 @@ export default function Hero() {
             </h1>
 
             <p className="text-nb-white/80 font-sans font-light text-[14px] md:text-[15px] tracking-[0.15em] uppercase leading-relaxed mb-16 max-w-lg">
-              Couture · Ready-to-Wear · Bespoke
+              Couture · Bridal · Ready-to-Wear
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6 w-full sm:w-auto">

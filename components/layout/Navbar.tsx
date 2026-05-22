@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -21,25 +22,31 @@ const WhatsAppIcon = ({ size = 16 }: { size?: number }) => (
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+  
+  // Check if we are on the homepage
+  const isHomePage = pathname === "/";
 
-  // Prevent background scrolling when the mobile menu is open
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "unset";
     }
-    // Cleanup function
     return () => { document.body.style.overflow = "unset"; };
   }, [isMobileMenuOpen]);
 
   return (
     <>
-      <nav className="w-full bg-nb-cream py-3 sm:py-4 sticky top-0 z-40 border-b border-nb-black/5 overflow-x-hidden">
-        <div className="container mx-auto px-4 sm:px-6 flex items-center justify-between relative min-h-[50px]">
+      <nav 
+        className={`w-full py-3 sm:py-6 fixed top-0 z-50 transition-colors duration-300 overflow-x-hidden ${
+          isHomePage ? "bg-transparent" : "bg-nb-cream border-b border-nb-black/5"
+        }`}
+      >
+        <div className="container mx-auto px-4 sm:px-12 flex items-center justify-between relative min-h-[50px]">
           
-          {/* Logo */}
-          <Link href="/" className="relative w-32 h-8 sm:w-48 sm:h-12 flex-shrink-0 z-50">
+          {/* Logo - Added brightness-0 invert to turn the logo sharp white on the homepage */}
+          <Link href="/" className={`relative w-32 h-8 sm:w-40 sm:h-10 flex-shrink-0 z-50 ${isHomePage ? "brightness-0 invert" : ""}`}>
             <Image 
               src="/images/logo-transparent.png"
               alt="Naza Bulam Logo" 
@@ -50,26 +57,19 @@ export default function Navbar() {
           </Link>
 
           {/* --- DESKTOP LAYOUT --- */}
-          <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-8 text-[11px] tracking-[0.15em] font-sans text-nb-black uppercase font-medium">
-            <Link href="/" className="hover:text-nb-gold transition-colors">Home</Link>
-            <Link href="/coming-soon" className="hover:text-nb-gold transition-colors">Shop</Link>
-            <Link href="/coming-soon" className="hover:text-nb-gold transition-colors">Collection</Link>
-            <Link href="/#contact" className="hover:text-nb-gold transition-colors">Contact</Link>
+          <div className={`hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-6 lg:gap-10 text-[11px] tracking-[0.2em] font-sans uppercase font-medium whitespace-nowrap ${isHomePage ? "text-white drop-shadow-sm" : "text-nb-black"}`}>
+            <Link href="/couture" className="hover:text-nb-gold transition-colors">Couture</Link>
+            <Link href="/bridal" className="hover:text-nb-gold transition-colors">Bridal</Link>
+            <Link href="/ready-to-wear" className="hover:text-nb-gold transition-colors">Ready-to-Wear</Link>
+            <Link href="/about" className="hover:text-nb-gold transition-colors">About</Link>
+            <Link href="/contact" className="hover:text-nb-gold transition-colors">Contact</Link>
           </div>
 
           <div className="hidden lg:flex items-center gap-6 z-50">
-            <Link 
-              href={process.env.NEXT_PUBLIC_WA_NUMBER ? `https://wa.me/${process.env.NEXT_PUBLIC_WA_NUMBER}` : "#"} 
-              target="_blank"
-              className="flex items-center gap-2 text-[11px] tracking-[0.15em] font-sans text-nb-black hover:text-nb-gold transition-colors uppercase font-medium"
-            >
-              <WhatsAppIcon size={16} />
-              <span>WhatsApp</span>
-            </Link>
-
             <Link href="/book">
-              <button className="bg-nb-black text-nb-cream px-8 py-3 text-[11px] tracking-[0.15em] uppercase hover:bg-nb-gold hover:text-nb-black transition-colors rounded-none font-semibold">
-                Book Appointment
+              {/* Changed to sharp white text and border for homepage */}
+              <button className={`px-8 py-3 text-[11px] tracking-[0.15em] uppercase transition-colors rounded-none font-semibold whitespace-nowrap ${isHomePage ? "bg-transparent border border-white text-white hover:bg-white hover:text-nb-black" : "bg-nb-black text-nb-cream hover:bg-nb-gold hover:text-nb-black"}`}>
+                Book Consultation
               </button>
             </Link>
           </div>
@@ -77,14 +77,14 @@ export default function Navbar() {
           {/* --- MOBILE LAYOUT (Header) --- */}
           <div className="flex lg:hidden items-center gap-3 z-50">
             <Link href="/book" className="flex-shrink-0">
-              <button className="bg-nb-black text-nb-cream px-5 py-2.5 text-[10px] tracking-[0.1em] uppercase hover:bg-nb-gold hover:text-nb-black transition-colors rounded-none font-semibold">
+              <button className={`px-5 py-2.5 text-[10px] tracking-[0.1em] uppercase transition-colors rounded-none font-semibold ${isHomePage ? "bg-transparent border border-white text-white" : "bg-nb-black text-nb-cream"}`}>
                 Book
               </button>
             </Link>
             
             <button 
               onClick={() => setIsMobileMenuOpen(true)}
-              className="p-2 -mr-2 text-nb-black hover:text-nb-gold transition-colors"
+              className={`p-2 -mr-2 transition-colors ${isHomePage ? "text-white" : "text-nb-black hover:text-nb-gold"}`}
               aria-label="Open Menu"
             >
               <Menu size={24} strokeWidth={1.5} />
@@ -93,11 +93,10 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* --- MOBILE SIDEBAR MENU --- */}
+      {/* --- MOBILE SIDEBAR MENU (Stays unchanged) --- */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <>
-            {/* Dark Overlay Background */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -107,7 +106,6 @@ export default function Navbar() {
               className="fixed inset-0 bg-nb-black/60 z-[60] lg:hidden backdrop-blur-sm"
             />
 
-            {/* Sliding Drawer */}
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
@@ -115,7 +113,6 @@ export default function Navbar() {
               transition={{ type: "tween", duration: 0.3, ease: "easeInOut" }}
               className="fixed right-0 top-0 bottom-0 w-[80vw] max-w-sm bg-nb-cream z-[70] flex flex-col px-8 py-8 lg:hidden shadow-2xl overflow-y-auto"
             >
-              {/* Close Button */}
               <div className="flex justify-end mb-12">
                 <button 
                   onClick={() => setIsMobileMenuOpen(false)}
@@ -126,15 +123,15 @@ export default function Navbar() {
                 </button>
               </div>
 
-              {/* Mobile Links */}
               <div className="flex flex-col gap-8 text-[14px] tracking-[0.2em] font-sans text-nb-black uppercase font-medium">
                 <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-nb-gold transition-colors">Home</Link>
-                <Link href="/coming-soon" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-nb-gold transition-colors">Shop</Link>
-                <Link href="/coming-soon" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-nb-gold transition-colors">Collection</Link>
-                <Link href="/#contact" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-nb-gold transition-colors">Contact</Link>
+                <Link href="/couture" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-nb-gold transition-colors">Couture</Link>
+                <Link href="/bridal" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-nb-gold transition-colors">Bridal</Link>
+                <Link href="/ready-to-wear" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-nb-gold transition-colors">Ready-to-Wear</Link>
+                <Link href="/about" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-nb-gold transition-colors">About</Link>
+                <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-nb-gold transition-colors">Contact</Link>
               </div>
 
-              {/* Bottom Action (WhatsApp) */}
               <div className="mt-auto pt-10 border-t border-nb-black/10">
                 <Link 
                   href={process.env.NEXT_PUBLIC_WA_NUMBER ? `https://wa.me/${process.env.NEXT_PUBLIC_WA_NUMBER}` : "#"} 
