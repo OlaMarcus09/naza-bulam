@@ -43,11 +43,10 @@ export default function CouturePage() {
         </div>
 
         {/* Right Side: Edge-to-Edge Video (Decreased to 40% width on Desktop) */}
-        <div className="w-full lg:w-[40%] relative h-[50vh] lg:h-auto min-h-[500px]">
+        <div className="w-full lg:w-[40%] relative h-[50vh] lg:h-auto min-h-[500px] bg-nb-cream">
           
-          {/* THE BLEND EFFECT */}
+          {/* THE BLEND EFFECT: Desktop only! Mobile blur has been removed completely. */}
           <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-32 xl:w-48 bg-gradient-to-r from-nb-cream to-transparent z-10 pointer-events-none" />
-          <div className="block lg:hidden absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-nb-cream to-transparent z-10 pointer-events-none" />
 
           <video
             src="/couture.mov"
@@ -55,7 +54,8 @@ export default function CouturePage() {
             loop
             muted
             playsInline
-            className="absolute inset-0 w-full h-full object-cover"
+            {/* Changed to object-contain on mobile to show the full video without zooming */}
+            className="absolute inset-0 w-full h-full object-contain lg:object-cover"
           />
         </div>
       </section>
@@ -118,4 +118,4 @@ export default function CouturePage() {
 
     </main>
   );
-}
+              }
