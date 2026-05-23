@@ -48,13 +48,13 @@ export default function CouturePage() {
           {/* THE BLEND EFFECT: Desktop only! Mobile blur has been removed completely. */}
           <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-32 xl:w-48 bg-gradient-to-r from-nb-cream to-transparent z-10 pointer-events-none" />
 
+          {/* Changed to object-contain on mobile to show the full video without zooming */}
           <video
             src="/couture.mov"
             autoPlay
             loop
             muted
             playsInline
-            {/* Changed to object-contain on mobile to show the full video without zooming */}
             className="absolute inset-0 w-full h-full object-contain lg:object-cover"
           />
         </div>
@@ -118,4 +118,5 @@ export default function CouturePage() {
 
     </main>
   );
-              }
+                                                                                          }
+
