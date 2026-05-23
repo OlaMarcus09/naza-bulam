@@ -1,99 +1,113 @@
-"use client";
-
-import { useState, useEffect, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { X, Home, Monitor, ArrowRight } from "lucide-react";
-import PhysicalForm from "@/components/ui/PhysicalForm";
 
-type BookingStep = "SELECT" | "PHYSICAL_FORM";
-
-function BookingContent() {
-  const searchParams = useSearchParams();
-  const [step, setStep] = useState<BookingStep>("SELECT");
-
-  // Automatically skip to form if 'physical' is in the URL
-  useEffect(() => {
-    const type = searchParams.get("type");
-    if (type === "physical") {
-      setStep("PHYSICAL_FORM");
-    } else if (type === "virtual") {
-      // If it's virtual, we can optionally redirect them immediately
-      const calUrl = process.env.NEXT_PUBLIC_CAL_URL;
-      if (calUrl) window.location.href = calUrl;
-    }
-  }, [searchParams]);
-
+export default function BookPage() {
   return (
-    <div className="w-full max-w-4xl py-12 md:py-0">
-      {step === "SELECT" && (
-        <div className="animate-in fade-in zoom-in-95 duration-500">
-          <div className="text-center mb-12">
-            <span className="text-nb-gold font-sans text-[11px] font-semibold tracking-[0.2em] uppercase mb-6 block">
-              Private Appointments
-            </span>
-            <h1 className="text-nb-cream font-serif text-[40px] md:text-[52px] leading-[1.1]">
-              Choose Your Experience
-            </h1>
-          </div>
+    // Added pt-[100px] so the transparent navbar doesn't cover your text!
+    <section className="bg-nb-cream min-h-[100dvh] pb-24 px-6 md:px-12 xl:px-0 pt-[100px] lg:pt-[120px]">
+      <div className="container mx-auto max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+        
+        {/* Left Column: Booking Info */}
+        <div className="flex flex-col justify-center">
+          <span className="text-nb-gold font-sans text-[11px] font-semibold tracking-[0.2em] uppercase mb-6 block">
+            Private Appointments
+          </span>
+          <h2 className="text-nb-black font-serif text-[44px] md:text-[52px] leading-[1.1] mb-12">
+            Reserve Your <br /> Consultation
+          </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <button 
-              onClick={() => setStep("PHYSICAL_FORM")}
-              className="group bg-nb-cream p-12 flex flex-col items-start transition-all duration-500 hover:bg-nb-white text-left h-full"
-            >
-              <Home className="w-8 h-8 text-nb-black mb-8 stroke-[1.5]" />
-              <h3 className="text-nb-black font-serif text-[28px] mb-8">In-Person Visit</h3>
-              <div className="mt-auto flex items-center gap-2 text-nb-muted font-sans text-[10px] tracking-[0.15em] uppercase group-hover:text-nb-gold transition-colors">
-                <span>Continue to Form</span>
-                <ArrowRight className="w-3 h-3" />
-              </div>
-            </button>
-
-            <a 
-              href={process.env.NEXT_PUBLIC_CAL_URL || "#"} 
-              target="_blank"
-              rel="noreferrer"
-              className="group bg-nb-cream p-12 flex flex-col items-start transition-all duration-500 hover:bg-nb-white text-left h-full"
-            >
-              <Monitor className="w-8 h-8 text-nb-black mb-8 stroke-[1.5]" />
-              <h3 className="text-nb-black font-serif text-[28px] mb-8">Virtual Session</h3>
-              <div className="mt-auto flex items-center gap-2 text-nb-muted font-sans text-[10px] tracking-[0.15em] uppercase group-hover:text-nb-gold transition-colors">
-                <span>Open Calendar</span>
-                <ArrowRight className="w-3 h-3" />
-              </div>
-            </a>
+          <div className="space-y-8">
+            <p className="text-nb-black/70 font-sans font-light text-[14px] leading-relaxed max-w-md">
+              Whether you prefer an in-person fitting at our Abuja studio or a virtual consultation from the comfort of your home, we are dedicated to bringing your vision to life.
+            </p>
+            
+            <div>
+              <h4 className="text-nb-muted font-sans text-[10px] tracking-[0.15em] uppercase mb-2">Important Note</h4>
+              <p className="text-nb-black font-sans font-light text-[13px] leading-relaxed max-w-md">
+                Please fill out the form with your preferred details. Our team will review your request and reply via email with pricing, availability, and next steps to secure your slot.
+              </p>
+            </div>
           </div>
         </div>
-      )}
 
-      {step === "PHYSICAL_FORM" && (
-        <div className="animate-in slide-in-from-right-8 fade-in duration-500 bg-nb-cream p-8 md:p-16 relative">
-          <button 
-            onClick={() => setStep("SELECT")}
-            className="text-nb-muted hover:text-nb-black font-sans text-[10px] tracking-[0.15em] uppercase mb-8 flex items-center gap-2 transition-colors"
-          >
-            ← Back to Options
-          </button>
-          <h2 className="text-nb-black font-serif text-[36px] mb-8">Request an Appointment</h2>
-          <PhysicalForm />
+        {/* Right Column: The Booking Form */}
+        <div>
+          <form action="https://api.web3forms.com/submit" method="POST" className="bg-nb-white p-8 md:p-12 shadow-sm space-y-10 rounded-sm">
+            
+            {/* Web3Forms required hidden input */}
+            <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE" />
+            <input type="hidden" name="subject" value="New Booking Request - Nazabulam" />
+            <input type="hidden" name="redirect" value="https://web3forms.com/success" />
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+              <div className="flex flex-col">
+                <label className="text-nb-muted font-sans text-[10px] tracking-[0.15em] uppercase mb-2">First Name</label>
+                <input type="text" name="First Name" required placeholder="Enter first name" className="bg-transparent border-b border-nb-black/20 py-2 focus:outline-none focus:border-nb-black transition-colors font-sans text-[13px] placeholder:text-nb-black/30 text-nb-black" />
+              </div>
+              <div className="flex flex-col">
+                <label className="text-nb-muted font-sans text-[10px] tracking-[0.15em] uppercase mb-2">Last Name</label>
+                <input type="text" name="Last Name" required placeholder="Enter last name" className="bg-transparent border-b border-nb-black/20 py-2 focus:outline-none focus:border-nb-black transition-colors font-sans text-[13px] placeholder:text-nb-black/30 text-nb-black" />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+              <div className="flex flex-col">
+                <label className="text-nb-muted font-sans text-[10px] tracking-[0.15em] uppercase mb-2">Email Address</label>
+                <input type="email" name="Email" required placeholder="your@email.com" className="bg-transparent border-b border-nb-black/20 py-2 focus:outline-none focus:border-nb-black transition-colors font-sans text-[13px] placeholder:text-nb-black/30 text-nb-black" />
+              </div>
+              <div className="flex flex-col">
+                <label className="text-nb-muted font-sans text-[10px] tracking-[0.15em] uppercase mb-2">Phone / WhatsApp</label>
+                <input type="tel" name="Phone" required placeholder="+234..." className="bg-transparent border-b border-nb-black/20 py-2 focus:outline-none focus:border-nb-black transition-colors font-sans text-[13px] placeholder:text-nb-black/30 text-nb-black" />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+              <div className="flex flex-col">
+                <label className="text-nb-muted font-sans text-[10px] tracking-[0.15em] uppercase mb-2">Consultation Type</label>
+                <select name="Consultation Type" required className="bg-transparent border-b border-nb-black/20 py-2 focus:outline-none focus:border-nb-black transition-colors font-sans text-[13px] text-nb-black appearance-none cursor-pointer">
+                  <option value="" disabled selected>Select Type</option>
+                  <option value="In-Person (Abuja)">In-Person (Abuja Studio)</option>
+                  <option value="Virtual">Virtual Session</option>
+                </select>
+              </div>
+              <div className="flex flex-col">
+                <label className="text-nb-muted font-sans text-[10px] tracking-[0.15em] uppercase mb-2">Service of Interest</label>
+                <select name="Service" required className="bg-transparent border-b border-nb-black/20 py-2 focus:outline-none focus:border-nb-black transition-colors font-sans text-[13px] text-nb-black appearance-none cursor-pointer">
+                  <option value="" disabled selected>Select Service</option>
+                  <option value="Bespoke Couture">Bespoke Couture</option>
+                  <option value="Bridal">Bridal</option>
+                  <option value="Ready-to-Wear Customization">Ready-to-Wear</option>
+                </select>
+              </div>
+            </div>
+            
+            <div className="flex flex-col">
+              <label className="text-nb-muted font-sans text-[10px] tracking-[0.15em] uppercase mb-2">Preferred Date (Optional)</label>
+              <input type="date" name="Preferred Date" className="bg-transparent border-b border-nb-black/20 py-2 focus:outline-none focus:border-nb-black transition-colors font-sans text-[13px] text-nb-black" />
+            </div>
+
+            <div className="flex flex-col">
+              <label className="text-nb-muted font-sans text-[10px] tracking-[0.15em] uppercase mb-2">Additional Details</label>
+              <textarea 
+                name="Message"
+                placeholder="Tell us about the occasion, your style preferences, or any questions..." 
+                rows={3}
+                className="bg-transparent border-b border-nb-black/20 py-2 focus:outline-none focus:border-nb-black transition-colors font-sans text-[13px] placeholder:text-nb-black/30 text-nb-black resize-none" 
+              />
+            </div>
+            
+            <div className="pt-4">
+              <button 
+                type="submit" 
+                className="px-10 py-4 bg-nb-black text-nb-white font-sans text-[11px] font-semibold tracking-[0.15em] uppercase hover:bg-nb-gold hover:text-nb-white transition-colors duration-300 rounded-none border border-transparent w-full"
+              >
+                Request Appointment
+              </button>
+            </div>
+          </form>
         </div>
-      )}
-    </div>
+
+      </div>
+    </section>
   );
 }
 
-export default function BookAppointmentPage() {
-  return (
-    <main className="min-h-screen bg-nb-black flex items-center justify-center p-6 fixed inset-0 z-[100] overflow-y-auto">
-      <Link href="/" className="absolute top-8 right-8 text-nb-cream hover:text-nb-gold transition-colors z-10">
-        <X size={32} strokeWidth={1} />
-      </Link>
-      
-      {/* Suspense is required when using useSearchParams in Next.js */}
-      <Suspense fallback={<div className="text-nb-gold">Loading...</div>}>
-        <BookingContent />
-      </Suspense>
-    </main>
-  );
-}
