@@ -34,7 +34,6 @@ export default function HomePage() {
         
         {/* LEFT SIDE: Typography & Buttons */}
         <div className="w-full lg:w-[45%] h-[40%] lg:h-full flex flex-col justify-center px-6 md:px-12 lg:px-20 pt-20 lg:pt-0 z-20">
-          {/* Reduced mobile font size slightly so it doesn't hit the screen edges */}
           <h1 
             className="text-[#3b352a] font-serif text-[45px] md:text-[80px] lg:text-[110px] leading-[1] mb-6 lg:mb-12 tracking-wide uppercase drop-shadow-sm"
           >
@@ -58,7 +57,7 @@ export default function HomePage() {
         {/* RIGHT SIDE: Interactive Image Slider */}
         <div className="w-full lg:w-[55%] h-[60%] lg:h-full relative z-10 overflow-hidden pb-4 lg:pb-0">
           
-          {/* THE BLEND EFFECT: Desktop only! Mobile blur has been removed completely. */}
+          {/* THE BLEND EFFECT: Desktop only! */}
           <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-48 bg-gradient-to-r from-[#D5C8B8] to-transparent z-20 pointer-events-none" />
 
           <AnimatePresence mode="wait">
@@ -76,12 +75,12 @@ export default function HomePage() {
               }}
               className="absolute inset-0 cursor-grab active:cursor-grabbing"
             >
-              {/* Changed to object-contain on mobile to show the full dress! */}
+              {/* THE FIX: Changed to object-contain for ALL screens so the dress is never chopped off */}
               <Image
                 src={BG_IMAGES[currentImageIndex]}
                 alt="Naza Bulam Collections"
                 fill
-                className="object-contain lg:object-cover object-center lg:object-top"
+                className="object-contain object-center lg:object-right"
                 priority
               />
             </motion.div>
@@ -93,7 +92,6 @@ export default function HomePage() {
       {/* BOTTOM FEATURE STRIP */}
       <div className="absolute bottom-0 left-0 w-full z-30 bg-[#D5C8B8]/95 backdrop-blur-md border-t border-[#74624a]/20 py-4 lg:py-5">
         <div className="container mx-auto px-4 lg:px-12">
-          {/* Changed to grid-cols-2 on mobile for a perfect 2x2 square layout */}
           <div className="grid grid-cols-2 lg:flex lg:flex-nowrap justify-between items-center gap-y-4 gap-x-2 lg:gap-4 text-[#3b352a] font-sans text-[9px] md:text-[11px] tracking-[0.2em] uppercase font-semibold">
             
             <div className="flex items-center gap-2 md:gap-3 justify-center lg:justify-start">
