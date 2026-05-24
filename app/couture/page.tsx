@@ -8,8 +8,8 @@ export default function CouturePage() {
       {/* 1. CREAM HERO SECTION */}
       <section className="bg-nb-cream w-full relative overflow-hidden flex flex-col lg:flex-row min-h-[80vh]">
         
-        {/* Left Side: Typography (Increased to 60% width on Desktop) */}
-        <div className="w-full lg:w-[60%] flex flex-col justify-center px-6 md:px-12 lg:pl-20 xl:pl-32 py-16 lg:py-24 z-20">
+        {/* Left Side: Typography (Changed to 55% width on Desktop for better balance) */}
+        <div className="w-full lg:w-[55%] flex flex-col justify-center px-6 md:px-12 lg:pl-20 xl:pl-32 py-16 lg:py-24 z-20">
           <div className="max-w-2xl">
             <span className="text-nb-gold font-sans text-[11px] font-semibold tracking-[0.2em] uppercase mb-6 block">
               Nazabulam Couture
@@ -42,20 +42,33 @@ export default function CouturePage() {
           </div>
         </div>
 
-        {/* Right Side: Edge-to-Edge Video (Decreased to 40% width on Desktop) */}
-        <div className="w-full lg:w-[40%] relative h-[50vh] lg:h-auto min-h-[500px] bg-nb-cream">
+        {/* Right Side: Interactive Video Slider with Backdrop Blur (Changed to 45% width) */}
+        <div className="w-full lg:w-[45%] relative h-[50vh] lg:h-auto min-h-[500px] overflow-hidden bg-nb-cream">
           
-          {/* THE BLEND EFFECT: Desktop only! Smoothly fades the left edge of the video into the background */}
+          {/* THE BLEND EFFECT: Desktop only! Smoothly fades the left edge into the background */}
           <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-32 xl:w-48 bg-gradient-to-r from-nb-cream to-transparent z-30 pointer-events-none" />
 
+          {/* 1. THE BLURRED BACKGROUND LAYER */}
           <video
             src="/couture.mov"
             autoPlay
             loop
             muted
             playsInline
-            className="absolute inset-0 w-full h-full object-contain object-center lg:object-left"
+            className="absolute inset-0 w-full h-full object-cover blur-2xl scale-110 opacity-60"
           />
+
+          {/* 2. THE SHARP FOREGROUND LAYER (Centered with padding to leave space on the right) */}
+          <div className="absolute inset-0 flex items-center justify-center lg:py-8 lg:px-4">
+            <video
+              src="/couture.mov"
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="object-contain w-auto h-full max-h-full drop-shadow-2xl"
+            />
+          </div>
         </div>
       </section>
 

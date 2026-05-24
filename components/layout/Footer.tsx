@@ -7,7 +7,6 @@ import Image from "next/image";
 export default function Footer() {
   const pathname = usePathname();
 
-  // If we are on the homepage, do not render the footer at all
   if (pathname === "/") {
     return null;
   }
@@ -17,8 +16,10 @@ export default function Footer() {
       <div className="container mx-auto max-w-6xl flex flex-col lg:flex-row justify-between gap-16">
         
         {/* Brand / Logo */}
-        <div className="max-w-xs">
-          <div className="relative w-64 h-28 mb-8 invert opacity-90"> 
+        <div className="max-w-xs flex flex-col items-start">
+          
+          {/* THE FIX: Re-sized the container to fit tighter and added -ml-3 to pull the logo perfectly flush left with the text below it */}
+          <div className="relative w-48 h-16 mb-6 invert opacity-90 -ml-3"> 
             <Image 
               src="/images/logo-transparent.png" 
               alt="Naza Bulam Logo" 
@@ -26,6 +27,7 @@ export default function Footer() {
               className="object-contain object-left"
             />
           </div>
+
           <p className="text-nb-muted font-sans font-light text-[13px] leading-[1.8]">
             A luxury fashion house dedicated to dressing the woman who knows herself.
           </p>

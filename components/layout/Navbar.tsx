@@ -24,7 +24,6 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
   
-  // Check if we are on the homepage
   const isHomePage = pathname === "/";
 
   useEffect(() => {
@@ -45,8 +44,8 @@ export default function Navbar() {
       >
         <div className="container mx-auto px-4 sm:px-12 flex items-center justify-between relative min-h-[50px]">
           
-          {/* Logo - Added brightness-0 invert to turn the logo sharp white on the homepage */}
-          <Link href="/" className={`relative w-32 h-8 sm:w-40 sm:h-10 flex-shrink-0 z-50 ${isHomePage ? "brightness-0 invert" : ""}`}>
+          {/* THE FIX: Increased width and height significantly, and added -ml-2 to counteract invisible padding */}
+          <Link href="/" className={`relative w-36 h-10 sm:w-48 sm:h-12 flex-shrink-0 z-50 -ml-2 ${isHomePage ? "brightness-0 invert" : ""}`}>
             <Image 
               src="/images/logo-transparent.png"
               alt="Naza Bulam Logo" 
@@ -56,7 +55,6 @@ export default function Navbar() {
             />
           </Link>
 
-          {/* --- DESKTOP LAYOUT --- */}
           <div className={`hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-6 lg:gap-10 text-[11px] tracking-[0.2em] font-sans uppercase font-medium whitespace-nowrap ${isHomePage ? "text-white drop-shadow-sm" : "text-nb-black"}`}>
             <Link href="/couture" className="hover:text-nb-gold transition-colors">Couture</Link>
             <Link href="/bridal" className="hover:text-nb-gold transition-colors">Bridal</Link>
@@ -67,14 +65,12 @@ export default function Navbar() {
 
           <div className="hidden lg:flex items-center gap-6 z-50">
             <Link href="/book">
-              {/* Changed to sharp white text and border for homepage */}
               <button className={`px-8 py-3 text-[11px] tracking-[0.15em] uppercase transition-colors rounded-none font-semibold whitespace-nowrap ${isHomePage ? "bg-transparent border border-white text-white hover:bg-white hover:text-nb-black" : "bg-nb-black text-nb-cream hover:bg-nb-gold hover:text-nb-black"}`}>
                 Book Consultation
               </button>
             </Link>
           </div>
 
-          {/* --- MOBILE LAYOUT (Header) --- */}
           <div className="flex lg:hidden items-center gap-3 z-50">
             <Link href="/book" className="flex-shrink-0">
               <button className={`px-5 py-2.5 text-[10px] tracking-[0.1em] uppercase transition-colors rounded-none font-semibold ${isHomePage ? "bg-transparent border border-white text-white" : "bg-nb-black text-nb-cream"}`}>
@@ -93,7 +89,6 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* --- MOBILE SIDEBAR MENU (Stays unchanged) --- */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <>

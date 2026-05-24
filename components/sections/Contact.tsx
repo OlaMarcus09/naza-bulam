@@ -67,7 +67,7 @@ export default function Contact() {
             </div>
             <div className="flex flex-col">
               <label className="text-nb-muted font-sans text-[10px] tracking-[0.15em] uppercase mb-2">Subject</label>
-              <input type="text" name="Subject" required placeholder="Select subject" className="bg-transparent border-b border-nb-black/20 py-2 focus:outline-none focus:border-nb-black transition-colors font-sans text-[13px] placeholder:text-nb-black/30 text-nb-black" />
+              <input type="text" name="Subject" required placeholder="subject" className="bg-transparent border-b border-nb-black/20 py-2 focus:outline-none focus:border-nb-black transition-colors font-sans text-[13px] placeholder:text-nb-black/30 text-nb-black" />
             </div>
             <div className="flex flex-col">
               <label className="text-nb-muted font-sans text-[10px] tracking-[0.15em] uppercase mb-2">Your Message</label>
