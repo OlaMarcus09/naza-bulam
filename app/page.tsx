@@ -57,8 +57,8 @@ export default function HomePage() {
         {/* RIGHT SIDE: Interactive Image Slider */}
         <div className="w-full lg:w-[55%] h-[60%] lg:h-full relative z-10 overflow-hidden pb-4 lg:pb-0">
           
-          {/* THE BLEND EFFECT: Desktop only! */}
-          <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-48 bg-gradient-to-r from-[#D5C8B8] to-transparent z-20 pointer-events-none" />
+          {/* THE BLEND EFFECT: Desktop only! Smoothly fades the left edge of the image into the background */}
+          <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-32 xl:w-48 bg-gradient-to-r from-[#D5C8B8] to-transparent z-30 pointer-events-none" />
 
           <AnimatePresence mode="wait">
             <motion.div
@@ -75,12 +75,12 @@ export default function HomePage() {
               }}
               className="absolute inset-0 cursor-grab active:cursor-grabbing"
             >
-              {/* THE FIX: Changed to object-contain for ALL screens so the dress is never chopped off */}
+              {/* THE FIX: object-contain for all screens, but shifted left on desktop so the blend mask catches it! */}
               <Image
                 src={BG_IMAGES[currentImageIndex]}
                 alt="Naza Bulam Collections"
                 fill
-                className="object-contain object-center lg:object-right"
+                className="object-contain object-center lg:object-left"
                 priority
               />
             </motion.div>
