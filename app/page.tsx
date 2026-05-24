@@ -54,10 +54,10 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* RIGHT SIDE: Interactive Image Slider */}
-        <div className="w-full lg:w-[55%] h-[60%] lg:h-full relative z-10 overflow-hidden pb-4 lg:pb-0">
+        {/* RIGHT SIDE: Interactive Image Slider with Backdrop Blur */}
+        <div className="w-full lg:w-[55%] h-[60%] lg:h-full relative z-10 overflow-hidden pb-4 lg:pb-0 bg-[#C8BDB0]">
           
-          {/* THE BLEND EFFECT: Desktop only! Smoothly fades the left edge of the image into the background */}
+          {/* THE BLEND EFFECT: Desktop only! Smoothly fades the left edge into the background */}
           <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-32 xl:w-48 bg-gradient-to-r from-[#D5C8B8] to-transparent z-30 pointer-events-none" />
 
           <AnimatePresence mode="wait">
@@ -75,14 +75,28 @@ export default function HomePage() {
               }}
               className="absolute inset-0 cursor-grab active:cursor-grabbing"
             >
-              {/* THE FIX: object-contain for all screens, but shifted left on desktop so the blend mask catches it! */}
+              
+              {/* 1. THE BLURRED BACKGROUND LAYER */}
               <Image
                 src={BG_IMAGES[currentImageIndex]}
-                alt="Naza Bulam Collections"
+                alt="Background Effect"
                 fill
-                className="object-contain object-center lg:object-left"
+                className="object-cover blur-2xl scale-110 opacity-60"
                 priority
               />
+
+              {/* 2. THE SHARP FOREGROUND LAYER (Centered) */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <Image
+                  src={BG_IMAGES[currentImageIndex]}
+                  alt="Naza Bulam Collections"
+                  width={800}
+                  height={1200}
+                  className="object-contain w-auto h-full max-h-full drop-shadow-2xl"
+                  priority
+                />
+              </div>
+
             </motion.div>
           </AnimatePresence>
         </div>

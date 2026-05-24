@@ -41,36 +41,45 @@ export default function Contact() {
           <span className="text-nb-gold font-sans text-[11px] font-semibold tracking-[0.2em] uppercase mb-6 block">
             Send us a message
           </span>
-          <form className="mt-8 space-y-10">
+          
+          {/* THE FIX: Added Web3Forms action and POST method */}
+          <form action="https://api.web3forms.com/submit" method="POST" className="mt-8 space-y-10">
+            
+            {/* Web3Forms required hidden inputs */}
+            {/* PASTE YOUR SAME ACCESS KEY HERE */}
+            <input type="hidden" name="access_key" value="7286bb64-8e7f-4e63-a62d-f8a4ae55ebff" />
+            <input type="hidden" name="subject" value="New General Inquiry - Nazabulam" />
+            <input type="hidden" name="redirect" value="https://web3forms.com/success" />
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
               <div className="flex flex-col">
                 <label className="text-nb-muted font-sans text-[10px] tracking-[0.15em] uppercase mb-2">First Name</label>
-                <input type="text" placeholder="Enter your First name" className="bg-transparent border-b border-nb-black/20 py-2 focus:outline-none focus:border-nb-black transition-colors font-sans text-[13px] placeholder:text-nb-black/30 text-nb-black" />
+                <input type="text" name="First Name" required placeholder="Enter your First name" className="bg-transparent border-b border-nb-black/20 py-2 focus:outline-none focus:border-nb-black transition-colors font-sans text-[13px] placeholder:text-nb-black/30 text-nb-black" />
               </div>
               <div className="flex flex-col">
                 <label className="text-nb-muted font-sans text-[10px] tracking-[0.15em] uppercase mb-2">Last Name</label>
-                <input type="text" placeholder="Enter your Last name" className="bg-transparent border-b border-nb-black/20 py-2 focus:outline-none focus:border-nb-black transition-colors font-sans text-[13px] placeholder:text-nb-black/30 text-nb-black" />
+                <input type="text" name="Last Name" required placeholder="Enter your Last name" className="bg-transparent border-b border-nb-black/20 py-2 focus:outline-none focus:border-nb-black transition-colors font-sans text-[13px] placeholder:text-nb-black/30 text-nb-black" />
               </div>
             </div>
             <div className="flex flex-col">
               <label className="text-nb-muted font-sans text-[10px] tracking-[0.15em] uppercase mb-2">Email Address</label>
-              <input type="email" placeholder="your@email.com" className="bg-transparent border-b border-nb-black/20 py-2 focus:outline-none focus:border-nb-black transition-colors font-sans text-[13px] placeholder:text-nb-black/30 text-nb-black" />
+              <input type="email" name="Email" required placeholder="your@email.com" className="bg-transparent border-b border-nb-black/20 py-2 focus:outline-none focus:border-nb-black transition-colors font-sans text-[13px] placeholder:text-nb-black/30 text-nb-black" />
             </div>
             <div className="flex flex-col">
               <label className="text-nb-muted font-sans text-[10px] tracking-[0.15em] uppercase mb-2">Subject</label>
-              <input type="text" placeholder="Select subject" className="bg-transparent border-b border-nb-black/20 py-2 focus:outline-none focus:border-nb-black transition-colors font-sans text-[13px] placeholder:text-nb-black/30 text-nb-black" />
+              <input type="text" name="Subject" required placeholder="Select subject" className="bg-transparent border-b border-nb-black/20 py-2 focus:outline-none focus:border-nb-black transition-colors font-sans text-[13px] placeholder:text-nb-black/30 text-nb-black" />
             </div>
             <div className="flex flex-col">
               <label className="text-nb-muted font-sans text-[10px] tracking-[0.15em] uppercase mb-2">Your Message</label>
-              {/* Changed to a textarea for better UX */}
               <textarea 
+                name="Message"
+                required
                 placeholder="How can we help" 
                 rows={3}
                 className="bg-transparent border-b border-nb-black/20 py-2 focus:outline-none focus:border-nb-black transition-colors font-sans text-[13px] placeholder:text-nb-black/30 text-nb-black resize-none" 
               />
             </div>
             
-            {/* Added Submit Button */}
             <div className="pt-4">
               <button 
                 type="submit" 
