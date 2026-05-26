@@ -30,12 +30,15 @@ export default function HomePage() {
     <main className="relative w-full h-[100dvh] bg-[#D5C8B8] overflow-hidden flex flex-col">
       
       {/* MAIN SPLIT-SCREEN CONTENT */}
-      <div className="flex-grow flex flex-col lg:flex-row relative z-10 w-full h-full">
+      {/* Added md:flex-row so the iPad gets the side-by-side view */}
+      <div className="flex-grow flex flex-col md:flex-row relative z-10 w-full h-full">
         
         {/* LEFT SIDE: Typography & Buttons */}
-        <div className="w-full lg:w-[50%] h-[40%] lg:h-full flex flex-col justify-center px-6 md:px-12 lg:px-20 pt-20 lg:pt-0 z-20">
+        {/* Added md:w-1/2, md:h-full, and md:pt-0 to lock it into the tablet split */}
+        <div className="w-full md:w-1/2 lg:w-[45%] h-[40%] md:h-full flex flex-col justify-center px-6 md:px-12 lg:px-20 pt-20 md:pt-0 z-20">
           <h1 
-            className="text-[#3b352a] font-serif text-[45px] md:text-[80px] lg:text-[110px] leading-[1] mb-6 lg:mb-12 tracking-wide uppercase drop-shadow-sm"
+            {/* Added md:text-[64px] so the font scales cleanly on iPad */}
+            className="text-[#3b352a] font-serif text-[45px] md:text-[64px] lg:text-[110px] leading-[1] mb-6 lg:mb-12 tracking-wide uppercase drop-shadow-sm"
           >
             NazaBulam
           </h1>
@@ -55,7 +58,8 @@ export default function HomePage() {
         </div>
 
         {/* RIGHT SIDE: Interactive Image Slider with Backdrop Blur */}
-        <div className="w-full lg:w-[55%] h-[60%] lg:h-full relative z-10 overflow-hidden pb-4 lg:pb-0 bg-[#C8BDB0]">
+        {/* Added md:w-1/2, md:h-full, and md:pb-0 to lock it into the tablet split */}
+        <div className="w-full md:w-1/2 lg:w-[55%] h-[60%] md:h-full relative z-10 overflow-hidden pb-4 md:pb-0 bg-[#C8BDB0]">
           
           {/* THE BLEND EFFECT: Desktop only! Smoothly fades the left edge into the background */}
           <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-32 xl:w-48 bg-gradient-to-r from-[#D5C8B8] to-transparent z-30 pointer-events-none" />

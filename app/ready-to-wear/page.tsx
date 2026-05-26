@@ -7,16 +7,19 @@ export default function ReadyToWearPage() {
     <main className="w-full flex flex-col pt-[70px] lg:pt-[90px]">
       
       {/* 1. CREAM HERO SECTION */}
-      <section className="bg-nb-cream w-full relative overflow-hidden flex flex-col lg:flex-row min-h-[80vh]">
+      {/* Added md:flex-row and scaled heights so iPads get the side-by-side view */}
+      <section className="bg-nb-cream w-full relative overflow-hidden flex flex-col md:flex-row min-h-[50vh] md:min-h-[70vh] lg:min-h-[80vh]">
         
-        {/* Left Side: Typography (Increased to 60% width on Desktop) */}
-        <div className="w-full lg:w-[60%] flex flex-col justify-center px-6 md:px-12 lg:pl-20 xl:pl-32 py-16 lg:py-24 z-20">
+        {/* Left Side: Typography */}
+        {/* Added md:w-1/2 to lock it into a 50% split on tablet before the desktop 55% split */}
+        <div className="w-full md:w-1/2 lg:w-[55%] flex flex-col justify-center px-6 md:px-12 lg:pl-20 xl:pl-32 py-16 md:py-20 lg:py-24 z-20">
           <div className="max-w-2xl">
             <span className="text-nb-gold font-sans text-[11px] font-semibold tracking-[0.2em] uppercase mb-6 block">
               Nazabulam Ready-to-Wear
             </span>
             
-            <h1 className="text-nb-black font-serif text-[56px] md:text-[72px] lg:text-[80px] leading-[1.1] mb-8">
+            {/* Added md:text-[64px] so the font scales perfectly on iPad */}
+            <h1 className="text-nb-black font-serif text-[56px] md:text-[64px] lg:text-[80px] leading-[1.1] mb-8">
               Elevated Style, <br /> Ready Now
             </h1>
 
@@ -43,21 +46,35 @@ export default function ReadyToWearPage() {
           </div>
         </div>
 
-        {/* Right Side: Edge-to-Edge Image (Decreased to 40% width on Desktop) */}
-        <div className="w-full lg:w-[40%] relative h-[50vh] lg:h-auto min-h-[500px] bg-nb-cream">
+        {/* Right Side: Image with Backdrop Blur */}
+        {/* Added md:w-1/2 and specific md:min-h to ensure the image isn't squashed on iPad */}
+        <div className="w-full md:w-1/2 lg:w-[45%] relative h-[50vh] md:h-auto min-h-[500px] md:min-h-[600px] lg:min-h-[500px] overflow-hidden bg-nb-cream">
           
-          {/* THE BLEND EFFECT: Desktop only! Smoothly fades the left edge of the image into the background */}
+          {/* THE BLEND EFFECT: Desktop only! Smoothly fades the left edge into the background */}
           <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-32 xl:w-48 bg-gradient-to-r from-nb-cream to-transparent z-30 pointer-events-none" />
 
-          {/* Image uses object-contain to prevent chopping, shifts left on desktop to meet the blend mask */}
+          {/* 1. THE BLURRED BACKGROUND LAYER */}
           <Image
             src="/ready_to_wear.jpeg"
-            alt="Nazabulam Ready-to-Wear Collection"
+            alt="Background effect"
             fill
-            className="absolute inset-0 w-full h-full object-contain object-center lg:object-left"
-            sizes="(max-width: 1024px) 100vw, 50vw"
+            className="object-cover blur-2xl scale-110 opacity-60"
             priority
           />
+
+          {/* 2. THE SHARP FOREGROUND LAYER (Centered with padding to leave space on the right) */}
+          <div className="absolute inset-0 flex items-center justify-center lg:py-8 lg:px-4">
+            <div className="relative w-full h-full drop-shadow-2xl">
+              <Image
+                src="/ready_to_wear.jpeg"
+                alt="Nazabulam Ready-to-Wear Collection"
+                fill
+                className="object-contain"
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 45vw"
+                priority
+              />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -103,15 +120,15 @@ export default function ReadyToWearPage() {
         </div>
       </section>
 
-      {/* 3. CTA BANNER */}
+      {/* 3. CTA BANNER (Updated to match Couture & link to /book) */}
       <section className="bg-nb-cream w-full py-20 px-6 border-t border-nb-black/10">
         <div className="container mx-auto max-w-4xl text-center">
           <h2 className="text-nb-black font-serif text-[36px] md:text-[48px] leading-[1.1] mb-8">
-            Discover the Collection
+            Begin Your Journey
           </h2>
-          <Link href="/coming-soon">
+          <Link href="/book">
             <button className="px-10 py-4 bg-nb-black text-nb-cream font-sans text-[11px] font-semibold tracking-[0.15em] uppercase hover:bg-nb-gold hover:text-nb-black transition-colors duration-300 rounded-none inline-flex items-center gap-3">
-              Shop Ready-to-Wear <ArrowRight size={14} />
+              Book a Consultation <ArrowRight size={14} />
             </button>
           </Link>
         </div>

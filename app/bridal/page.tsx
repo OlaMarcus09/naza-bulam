@@ -3,24 +3,26 @@ import { ArrowRight } from "lucide-react";
 
 export default function BridalPage() {
   return (
-    // Added padding-top to account for the fixed transparent navbar
     <main className="w-full flex flex-col pt-[70px] lg:pt-[90px]">
       
-      {/* 1. CREAM HERO SECTION (True Edge-to-Edge Split Screen) */}
-      <section className="bg-nb-cream w-full relative overflow-hidden flex flex-col lg:flex-row min-h-[80vh]">
+      {/* 1. CREAM HERO SECTION */}
+      {/* Added md:flex-row and scaled heights so iPads get the side-by-side view */}
+      <section className="bg-nb-cream w-full relative overflow-hidden flex flex-col md:flex-row min-h-[50vh] md:min-h-[70vh] lg:min-h-[80vh]">
         
         {/* Left Side: Typography */}
-        <div className="w-full lg:w-1/2 flex flex-col justify-center px-6 md:px-12 lg:pl-20 xl:pl-32 py-16 lg:py-24 z-20">
-          <div className="max-w-xl">
+        {/* Added md:w-1/2 to lock it into a 50% split on tablet before the desktop 55% split */}
+        <div className="w-full md:w-1/2 lg:w-[55%] flex flex-col justify-center px-6 md:px-12 lg:pl-20 xl:pl-32 py-16 md:py-20 lg:py-24 z-20">
+          <div className="max-w-2xl">
             <span className="text-nb-gold font-sans text-[11px] font-semibold tracking-[0.2em] uppercase mb-6 block">
               Nazabulam Bridal
             </span>
             
-            <h1 className="text-nb-black font-serif text-[56px] md:text-[72px] lg:text-[80px] leading-[1.1] mb-8">
+            {/* Added md:text-[64px] so the font scales perfectly on iPad */}
+            <h1 className="text-nb-black font-serif text-[56px] md:text-[64px] lg:text-[80px] leading-[1.1] mb-8">
               Your Most <br /> Beautiful Day
             </h1>
 
-            <p className="text-nb-black/70 font-sans font-light text-[14px] md:text-[15px] leading-relaxed mb-12">
+            <p className="text-nb-black/70 font-sans font-light text-[14px] md:text-[15px] leading-relaxed mb-12 max-w-xl">
               Designed for the bride who desires timeless elegance, refined craftsmanship, and an unforgettable silhouette.
             </p>
 
@@ -43,24 +45,34 @@ export default function BridalPage() {
           </div>
         </div>
 
-        {/* Right Side: Edge-to-Edge Video with Seamless Fade */}
-        <div className="w-full lg:w-1/2 relative h-[50vh] lg:h-auto min-h-[500px]">
+        {/* Right Side: Interactive Video Slider with Backdrop Blur */}
+        {/* Added md:w-1/2 and specific md:min-h to ensure the video isn't squashed on iPad */}
+        <div className="w-full md:w-1/2 lg:w-[45%] relative h-[50vh] md:h-auto min-h-[500px] md:min-h-[600px] lg:min-h-[500px] overflow-hidden bg-nb-cream">
           
-          {/* THE BLEND EFFECT: Gradient overlays to melt the video into the cream background */}
-          {/* Desktop: Fade the left edge */}
-          <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-48 bg-gradient-to-r from-nb-cream to-transparent z-10 pointer-events-none" />
-          
-          {/* Mobile: Fade the top edge into the text section above it */}
-          <div className="block lg:hidden absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-nb-cream to-transparent z-10 pointer-events-none" />
+          {/* THE BLEND EFFECT: Desktop only! Smoothly fades the left edge into the background */}
+          <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-32 xl:w-48 bg-gradient-to-r from-nb-cream to-transparent z-30 pointer-events-none" />
 
+          {/* 1. THE BLURRED BACKGROUND LAYER */}
           <video
             src="/bridal.mp4"
             autoPlay
             loop
             muted
             playsInline
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover blur-2xl scale-110 opacity-60"
           />
+
+          {/* 2. THE SHARP FOREGROUND LAYER (Centered with padding to leave space on the right) */}
+          <div className="absolute inset-0 flex items-center justify-center lg:py-8 lg:px-4">
+            <video
+              src="/bridal.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="object-contain w-auto h-full max-h-full drop-shadow-2xl"
+            />
+          </div>
         </div>
       </section>
 
