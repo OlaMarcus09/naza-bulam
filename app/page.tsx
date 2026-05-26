@@ -33,11 +33,11 @@ export default function HomePage() {
       <div className="flex-grow flex flex-col lg:flex-row relative z-10 w-full h-full">
         
         {/* LEFT SIDE: Typography & Buttons */}
-        <div className="w-full lg:w-[45%] h-[40%] lg:h-full flex flex-col justify-center px-6 md:px-12 lg:px-20 pt-20 lg:pt-0 z-20">
+        <div className="w-full lg:w-[50%] h-[40%] lg:h-full flex flex-col justify-center px-6 md:px-12 lg:px-20 pt-20 lg:pt-0 z-20">
           <h1 
             className="text-[#3b352a] font-serif text-[45px] md:text-[80px] lg:text-[110px] leading-[1] mb-6 lg:mb-12 tracking-wide uppercase drop-shadow-sm"
           >
-            Naza Bulam
+            NazaBulam
           </h1>
 
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 w-full sm:w-auto">

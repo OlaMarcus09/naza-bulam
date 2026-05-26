@@ -16,7 +16,7 @@ export default function CouturePage() {
             </span>
             
             <h1 className="text-nb-black font-serif text-[56px] md:text-[72px] lg:text-[80px] leading-[1.1] mb-8">
-              Made for <br /> You, Alone
+              Made for <br /> You.
             </h1>
 
             <p className="text-nb-black/70 font-sans font-light text-[14px] md:text-[15px] leading-relaxed mb-12 max-w-xl">
@@ -50,7 +50,7 @@ export default function CouturePage() {
 
           {/* 1. THE BLURRED BACKGROUND LAYER */}
           <video
-            src="/couture.mov"
+            src="/couture.MOV"
             autoPlay
             loop
             muted

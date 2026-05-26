@@ -58,7 +58,7 @@ export default function BookPage() {
               </div>
               <div className="flex flex-col">
                 <label className="text-nb-muted font-sans text-[10px] tracking-[0.15em] uppercase mb-2">Phone / WhatsApp</label>
-                <input type="tel" name="Phone" required placeholder="+234..." className="bg-transparent border-b border-nb-black/20 py-2 focus:outline-none focus:border-nb-black transition-colors font-sans text-[13px] placeholder:text-nb-black/30 text-nb-black" />
+                <input type="tel" name="Phone" required placeholder="number" className="bg-transparent border-b border-nb-black/20 py-2 focus:outline-none focus:border-nb-black transition-colors font-sans text-[13px] placeholder:text-nb-black/30 text-nb-black" />
               </div>
             </div>
 

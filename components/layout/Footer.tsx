@@ -22,14 +22,14 @@ export default function Footer() {
           <div className="relative w-48 h-16 mb-6 invert opacity-90 -ml-3"> 
             <Image 
               src="/images/logo-transparent.png" 
-              alt="Naza Bulam Logo" 
+              alt="NazaBulam Logo" 
               fill 
               className="object-contain object-left"
             />
           </div>
 
           <p className="text-nb-muted font-sans font-light text-[13px] leading-[1.8]">
-            A luxury fashion house dedicated to dressing the woman who knows herself.
+            Designing timeless bespoke pieces for women of influence. 
           </p>
         </div>
 
