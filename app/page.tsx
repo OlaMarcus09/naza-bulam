@@ -36,10 +36,9 @@ export default function HomePage() {
         {/* LEFT SIDE: Typography & Buttons */}
         {/* Added md:w-1/2, md:h-full, and md:pt-0 to lock it into the tablet split */}
         <div className="w-full md:w-1/2 lg:w-[45%] h-[40%] md:h-full flex flex-col justify-center px-6 md:px-12 lg:px-20 pt-20 md:pt-0 z-20">
-          <h1 
-            {/* Added md:text-[64px] so the font scales cleanly on iPad */}
-            className="text-[#3b352a] font-serif text-[45px] md:text-[64px] lg:text-[110px] leading-[1] mb-6 lg:mb-12 tracking-wide uppercase drop-shadow-sm"
-          >
+          
+          {/* Added md:text-[64px] so the font scales cleanly on iPad */}
+          <h1 className="text-[#3b352a] font-serif text-[45px] md:text-[64px] lg:text-[110px] leading-[1] mb-6 lg:mb-12 tracking-wide uppercase drop-shadow-sm">
             NazaBulam
           </h1>
 
@@ -144,4 +143,4 @@ export default function HomePage() {
 
     </main>
   );
-}
+      }
